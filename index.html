@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز تصاميم</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <h2>تسجيل الدخول</h2>
+                    <p>مرحباً بك في مركز التصاميم</p>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="login-email" placeholder="example@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>كلمة المرور</label>
+                        <input type="password" id="login-password" placeholder="كلمة المرور" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i data-lucide="log-in"></i>
+                        تسجيل الدخول
+                    </button>
+                </form>
+                
+                <div class="login-footer">
+                    <p>ليس لديك حساب؟ <a href="#" id="show-register">إنشاء حساب جديد</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register-page" class="page hidden">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">
+                        <i data-lucide="user-plus"></i>
+                    </div>
+                    <h2>إنشاء حساب جديد</h2>
+                    <p>انضم إلى مركز التصاميم</p>
+                </div>
+                
+                <form id="register-form" class="login-form">
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="register-name" placeholder="الاسم الكامل" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="register-email" placeholder="example@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>كلمة المرور</label>
+                        <input type="password" id="register-password" placeholder="كلمة المرور" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i data-lucide="user-plus"></i>
+                        إنشاء الحساب
+                    </button>
+                </form>
+                
+                <div class="login-footer">
+                    <p>لديك حساب بالفعل؟ <a href="#" id="show-login">تسجيل الدخول</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page hidden">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <h1>مركز التصاميم</h1>
+                    <div class="header-actions">
+                        <span id="user-balance" class="balance-display">$0.00</span>
+                        <button id="logout-btn" class="logout-btn">
+                            <i data-lucide="log-out"></i>
+                            تسجيل الخروج
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Banner -->
+            <div class="main-banner">
+                <img src="https://i.postimg.cc/1tyC8c1C/IMG.jpg" alt="Main Banner" class="banner-image">
+            </div>
+
+            <!-- Main Sections -->
+            <div class="main-sections">
+                <div class="section-card" data-page="design-center">
+                    <div class="section-icon">
+                        <i data-lucide="layout-grid"></i>
+                    </div>
+                    <h3>مركز التصاميم</h3>
+                    <p>جميع التصاميم والهدايا والإطارات</p>
+                </div>
+
+                <div class="section-card" data-page="money-transfer">
+                    <div class="section-icon">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <h3>تحويل الأموال</h3>
+                    <p>تحويل الأموال بين المستخدمين</p>
+                </div>
+            </div>
+
+            <!-- Additional Sections -->
+            <div class="additional-sections">
+                <div class="section-card small" data-page="money-withdrawal">
+                    <div class="section-icon">
+                        <i data-lucide="banknote"></i>
+                    </div>
+                    <h4>سحب الأموال</h4>
+                </div>
+
+                <div class="section-card small" data-page="charging-center">
+                    <div class="section-icon">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h4>مركز الشحن</h4>
+                </div>
+            </div>
+
+            <!-- Admin Panel Access (Only for admin) -->
+            <div id="admin-access" class="admin-access hidden">
+                <div class="section-card admin" data-page="admin-panel">
+                    <div class="section-icon">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <h4>لوحة تحكم المسؤول</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Design Center Page -->
+    <div id="design-center-page" class="page hidden">
+        <div class="page-container">
+            <header class="page-header">
+                <button class="back-btn" data-back="dashboard">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <h2>مركز التصاميم</h2>
+            </header>
+            
+            <div id="design-categories" class="categories-grid">
+                <!-- Categories will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Money Transfer Page -->
+    <div id="money-transfer-page" class="page hidden">
+        <div class="page-container">
+            <header class="page-header">
+                <button class="back-btn" data-back="dashboard">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <h2>تحويل الأموال</h2>
+            </header>
+            
+            <div class="transfer-form-container">
+                <div class="transfer-info">
+                    <div class="info-icon">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <p>تحويل الأموال داخل المنصة</p>
+                    <p class="fee-info">رسوم التحويل: 10% من المبلغ</p>
+                </div>
+
+                <form id="transfer-form" class="transfer-form">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني للمستقبل *</label>
+                        <input type="email" id="recipient-email" placeholder="example@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الاسم الكامل للمستقبل *</label>
+                        <input type="text" id="recipient-name" placeholder="الاسم الكامل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الغرض من التحويل *</label>
+                        <input type="text" id="transfer-purpose" placeholder="مثال: شراء تصاميم، هدية، إلخ" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>المبلغ (بالدولار) *</label>
+                        <input type="number" id="transfer-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                    </div>
+
+                    <div id="transfer-summary" class="transfer-summary hidden">
+                        <h4>ملخص التحويل:</h4>
+                        <div class="summary-item">
+                            <span>المبلغ الأساسي:</span>
+                            <span id="base-amount">$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>رسوم التحويل (10%):</span>
+                            <span id="transfer-fee">$0.00</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>المبلغ الإجمالي:</span>
+                            <span id="total-amount">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="send"></i>
+                        تحويل الأموال
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Money Withdrawal Page -->
+    <div id="money-withdrawal-page" class="page hidden">
+        <div class="page-container">
+            <header class="page-header">
+                <button class="back-btn" data-back="dashboard">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <h2>سحب الأموال</h2>
+            </header>
+            
+            <div class="withdrawal-form-container">
+                <div class="withdrawal-info">
+                    <div class="info-icon">
+                        <i data-lucide="banknote"></i>
+                    </div>
+                    <p>سحب الأموال من محفظتك</p>
+                    <p id="available-balance" class="balance-info">الرصيد المتاح: $0.00</p>
+                </div>
+
+                <form id="withdrawal-form" class="withdrawal-form">
+                    <div class="form-group">
+                        <label>الاسم الكامل *</label>
+                        <input type="text" id="withdrawal-name" placeholder="الاسم الكامل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>البريد الإلكتروني *</label>
+                        <input type="email" id="withdrawal-email" placeholder="example@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>رقم الواتساب (مفعل) *</label>
+                        <input type="tel" id="withdrawal-whatsapp" placeholder="+966501234567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>المبلغ (بالدولار) *</label>
+                        <input type="number" id="withdrawal-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>طريقة الدفع *</label>
+                        <div class="payment-methods">
+                            <button type="button" class="payment-method" data-method="visa">
+                                <i data-lucide="credit-card"></i>
+                                <span>فيزا</span>
+                            </button>
+                            <button type="button" class="payment-method" data-method="wallet">
+                                <i data-lucide="wallet"></i>
+                                <span>محفظة إلكترونية</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الدولة *</label>
+                        <select id="withdrawal-country" required>
+                            <option value="">اختر الدولة</option>
+                            <option value="السعودية">السعودية</option>
+                            <option value="الإمارات">الإمارات</option>
+                            <option value="الكويت">الكويت</option>
+                            <option value="قطر">قطر</option>
+                            <option value="البحرين">البحرين</option>
+                            <option value="عمان">عمان</option>
+                            <option value="مصر">مصر</option>
+                            <option value="الأردن">الأردن</option>
+                            <option value="لبنان">لبنان</option>
+                            <option value="سوريا">سوريا</option>
+                            <option value="العراق">العراق</option>
+                            <option value="فلسطين">فلسطين</option>
+                            <option value="المغرب">المغرب</option>
+                            <option value="الجزائر">الجزائر</option>
+                            <option value="تونس">تونس</option>
+                            <option value="ليبيا">ليبيا</option>
+                            <option value="السودان">السودان</option>
+                            <option value="الصومال">الصومال</option>
+                            <option value="جيبوتي">جيبوتي</option>
+                            <option value="موريتانيا">موريتانيا</option>
+                            <option value="اليمن">اليمن</option>
+                        </select>
+                    </div>
+
+                    <div id="wallet-number-group" class="form-group hidden">
+                        <label>رقم المحفظة الإلكترونية *</label>
+                        <input type="text" id="wallet-number" placeholder="رقم المحفظة الإلكترونية">
+                    </div>
+
+                    <div id="visa-id-group" class="form-group hidden">
+                        <label>ID الفيزا *</label>
+                        <input type="text" id="visa-id" placeholder="ID الفيزا">
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="banknote"></i>
+                        طلب السحب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charging Center Page -->
+    <div id="charging-center-page" class="page hidden">
+        <div class="page-container">
+            <header class="page-header">
+                <button class="back-btn" data-back="dashboard">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <h2>مركز الشحن</h2>
+            </header>
+            
+            <div id="charging-apps" class="apps-grid">
+                <!-- Apps will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Page -->
+    <div id="admin-panel-page" class="page hidden">
+        <div class="page-container">
+            <header class="page-header">
+                <button class="back-btn" data-back="dashboard">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <h2>لوحة تحكم المسؤول</h2>
+                <button id="add-app-btn" class="add-btn">
+                    <i data-lucide="plus"></i>
+                    إضافة تطبيق
+                </button>
+            </header>
+            
+            <div id="admin-apps" class="admin-apps-grid">
+                <!-- Admin apps will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- App Charging Modal -->
+    <div id="charging-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="charging-app-name">شحن التطبيق</h3>
+                <button class="modal-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="app-info">
+                    <img id="charging-app-image" src="" alt="" class="app-image">
+                    <div class="app-details">
+                        <div class="diamond-info">
+                            <i data-lucide="gem"></i>
+                            <span id="charging-diamond-amount">0</span> ألماس
+                        </div>
+                        <div class="price-info" id="charging-price">$0.00</div>
+                    </div>
+                </div>
+
+                <form id="charging-form">
+                    <div class="form-group">
+                        <label id="charging-id-label">ID المستخدم *</label>
+                        <input type="text" id="charging-user-id" placeholder="أدخل ID المستخدم" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="zap"></i>
+                        شحن الآن
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit App Modal -->
+    <div id="app-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="app-modal-title">إضافة تطبيق جديد</h3>
+                <button class="modal-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="app-form">
+                    <div class="form-group">
+                        <label>اسم التطبيق *</label>
+                        <input type="text" id="app-name" placeholder="مثال: PUBG Mobile" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>رابط صورة التطبيق *</label>
+                        <input type="url" id="app-image" placeholder="https://example.com/app-icon.png" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>كمية الألماس *</label>
+                        <input type="number" id="app-diamonds" placeholder="مثال: 1000" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>السعر (بالدولار) *</label>
+                        <input type="number" id="app-price" placeholder="مثال: 9.99" min="0.01" step="0.01" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="save"></i>
+                        <span id="app-submit-text">إضافة التطبيق</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
